@@ -10,6 +10,7 @@ NODE_LIST = [
     'Add','Sub','Mult','Div','Mod','Pow','LShift','RShift','BitOr','BitXor',
     'BitAnd','FloorDiv','Invert','Not','UAdd','USub','Eq','NotEq','Lt',
     'LtE','Gt','GtE','Is','IsNot','In','NotIn','comprehension','ExceptHandler',
-    'arguments','keyword','alias']
+    'arguments','keyword','alias','Constant','arg','JoinedStr','FormattedValue',
+    'withitem','Try','Starred','YieldFrom','Nonlocal']
 
 NODE_MAP = {x: i for (i, x) in enumerate(NODE_LIST)}

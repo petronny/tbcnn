@@ -32,6 +32,9 @@ DATA_URLS = {
     'knapsack': 'https://api.github.com/search/code?q=filename:knapsack.py%20language:python'
 }
 
+from lib2to3.refactor import RefactoringTool, get_fixers_from_package
+refactoring_tool = RefactoringTool(set(get_fixers_from_package('lib2to3.fixes')))
+
 def fetch_page(url, page=0):
     """Fetch a search results page at the given url."""
     req = requests.get(
@@ -89,6 +92,10 @@ def fetch(outfile):
         scripts = fetch_scripts(url)
         for script in scripts:
             try:
+                script = script + '\n' if script.endswith('\n') else script
+                script = refactoring_tool.refactor_string(script, '/dev/null')
+                assert not script is None
+                script = str(script)
                 result.append({
                     'tree': build_tree(script), 'metadata': {'label': label}
                 })
