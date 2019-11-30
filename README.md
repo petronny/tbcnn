@@ -11,13 +11,15 @@ Differences from the paper
 * Vectors are learned by a variation of word2vec instead of the proposed method.
 * Adam is used instead of gradient descent.
 
+Dependency
+====
+
+* Python 3
+* Tensorflow >= 2.0
+* python-requests-cache
+
 Usage
 =====
-
-Recommended process is to setup a Python Virtual environment.
-
-Usage notes
------------
 
 While every attempt has been made to make this model memory efficient, it is
 capable of accepting arbitrary-sized trees. Especially large trees can consume
@@ -29,30 +31,6 @@ can run fairly well (albeit slower) on a CPU with RAM if memory is a problem.
 The vectorizer has best results with large amounts of data. The sample data 
 source provided is fairly small. It is possible to train the vectorizer on
 a larger datasource, and then apply it to a smaller classification problem.
-
-First time setup
-----------------
-
-This will create a Python virtual environment, and install the necessary
-packages only for this project.
-
-    $ pip install virtualenv
-    $ virtualenv -p /usr/bin/python2 venv
-    $ source venv/bin/activate
-    $ pip install -r requirements.txt
-    $ python setup.py develop
-
-Note the recommended Python version is 2 because many of the scripts parsed
-by the AST parser are written in Python 2. (Although we would use Python 3
-if we could.)
-
-Running from the virtual environment
-------------------------------------
-
-Make sure you run the commands from inside the virtual environment, once the
-virtual environment is created, you can enter it with:
-
-    $ source venv/bin/activate
 
 Crawler
 -------
@@ -67,7 +45,7 @@ Add your user name and access token to the config file.
 To download algorithm data from GitHub and parse the syntax trees into an output file:
 
     $ mkdir crawler/data
-    $ crawl algorithms --out crawler/data/algorithms.pkl
+    $ python crawler-commands.py algorithms --out crawler/data/algorithms.pkl
     
 **Alternatively:** a sample dataset fetched in the same way is saved in crawler/algorithms.zip. You can simply unzip it into the crawler/data directory.
 
@@ -77,14 +55,14 @@ Vectorizer
 Sample AST nodes from the GitHub data and output the sampled nodes into a file:
 
     $ mkdir sampler/data
-    $ sample nodes --in  crawler/data/algorithms.pkl \
+    $ python sampler-commands.py nodes --in  crawler/data/algorithms.pkl \
                    --out sampler/data/algorithm_nodes.pkl
 
 Turn the sampled nodes into a vector embedding and output the embedding to a
 file:
 
     $ mkdir vectorizer/data
-    $ vectorize ast2vec --in         sampler/data/algorithm_nodes.pkl \
+    $ python vectorizer-commands.py ast2vec --in         sampler/data/algorithm_nodes.pkl \
                         --out        vectorizer/data/vectors.pkl \
                         --checkpoint vectorizer/logs/algorithms
 
@@ -97,20 +75,20 @@ Classifier
 
 To sample small trees with a 70/30 train/test split:
 
-    $ sample trees --in      crawler/data/algorithms.pkl \
+    $ python sampler-commands.py trees --in      crawler/data/algorithms.pkl \
                    --out     sampler/data/algorithm_trees.pkl \
                    --maxsize 2000 \
                    --test    30
 
 To train the classifier:
 
-    $ classify train tbcnn --in    sampler/data/algorithm_trees.pkl \
+    $ python classifier-commands.py train tbcnn --in    sampler/data/algorithm_trees.pkl \
                            --logdir classifier/logs/1 \
                            --embed  vectorizer/data/vectors.pkl
 
 Test the classifier results
 
-    $ classify test tbcnn --in     sampler/data/algorithm_trees.pkl \
+    $ python classifier-commands.py test tbcnn --in     sampler/data/algorithm_trees.pkl \
                           --logdir classifier/logs/1 \
                           --embed  vectorizer/data/vectors.pkl
 
