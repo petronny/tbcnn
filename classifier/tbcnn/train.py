@@ -67,11 +67,11 @@ def train_model(logdir, infile, embedfile, epochs=EPOCHS):
                 }
             )
 
-            print('Epoch:', epoch,
+            print(('Epoch:', epoch,
                   'Step:', step,
                   'Loss:', err,
                   'Max nodes:', len(nodes[0])
-            )
+            ))
 
             writer.add_summary(summary, step)
             if step % CHECKPOINT_EVERY == 0:
@@ -99,7 +99,7 @@ def train_model(logdir, infile, embedfile, epochs=EPOCHS):
         predictions.append(np.argmax(output))
 
     target_names = list(labels)
-    print('Accuracy:', accuracy_score(correct_labels, predictions))
-    print(classification_report(correct_labels, predictions, target_names=target_names))
-    print(confusion_matrix(correct_labels, predictions))
+    print(('Accuracy:', accuracy_score(correct_labels, predictions)))
+    print((classification_report(correct_labels, predictions, target_names=target_names)))
+    print((confusion_matrix(correct_labels, predictions)))
 

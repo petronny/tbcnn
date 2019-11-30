@@ -2,7 +2,7 @@
 
 import os
 import logging
-import cPickle as pickle
+import pickle as pickle
 import tensorflow as tf
 import vectorizer.ast2vec.network as network
 import vectorizer.ast2vec.sampling as sampling
@@ -59,7 +59,7 @@ def learn_vectors(samples, logdir, outfile, num_feats=NUM_FEATURES, epochs=EPOCH
                 }
             )
 
-            print('Epoch: ', epoch, 'Loss: ', err)
+            print(('Epoch: ', epoch, 'Loss: ', err))
             writer.add_summary(summary, step)
             if step % CHECKPOINT_EVERY == 0:
                 # save state so we can resume later

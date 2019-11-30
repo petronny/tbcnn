@@ -53,7 +53,7 @@ def fetch_scripts(url, page_limit=20):
     for (page, _), i in ((fetch_page(url, 1), i) for i in range(num_pages)):
         new_scripts = extract_scripts(page)
         scripts.extend(new_scripts)
-        print('Parsed', len(new_scripts), 'from page', i)
+        print(('Parsed', len(new_scripts), 'from page', i))
 
     return scripts
 
@@ -84,7 +84,7 @@ def fetch(outfile):
     label_counts = defaultdict(int)
 
     print('Fetching scripts')
-    for label, url in DATA_URLS.items():
+    for label, url in list(DATA_URLS.items()):
         print(url)
         scripts = fetch_scripts(url)
         for script in scripts:
@@ -96,7 +96,7 @@ def fetch(outfile):
             except Exception as err:
                 print(err)
 
-    print('Label counts: ', label_counts)
+    print(('Label counts: ', label_counts))
 
     print('Dumping scripts')
     with open(outfile, 'wb') as file_handler:

@@ -43,15 +43,15 @@ def parse(args):
     random.shuffle(train_samples)
     random.shuffle(test_samples)
     # create a list of unique labels in the data
-    labels = list(set(train_counts.keys() + test_counts.keys()))
+    labels = list(set(list(train_counts.keys()) + list(test_counts.keys())))
     print('Dumping sample')
     with open(args.outfile, 'wb') as file_handler:
         pickle.dump((train_samples, test_samples, labels), file_handler)
         file_handler.close()
     print('dump finished')
     print('Sampled tree counts: ')
-    print('Training:', train_counts)
-    print('Testing:', test_counts)
+    print(('Training:', train_counts))
+    print(('Testing:', test_counts))
 
 def _traverse_tree(root):
     num_nodes = 1

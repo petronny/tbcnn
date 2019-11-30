@@ -1,7 +1,7 @@
 """Parse nodes from a given data source."""
 
 import ast
-import cPickle as pickle
+import pickle as pickle
 from collections import defaultdict
 
 def parse(args):
@@ -45,7 +45,7 @@ def parse(args):
 
     print('Sampled node counts:')
     print(node_counts)
-    print('Total: %d' % sum(node_counts.values()))
+    print(('Total: %d' % sum(node_counts.values())))
 
 def _create_samples(node):
     """Convert a node's children into a sample points."""

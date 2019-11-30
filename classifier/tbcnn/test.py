@@ -55,9 +55,9 @@ def test_model(logdir, infile, embedfile):
         correct_labels.append(np.argmax(batch_labels))
         predictions.append(np.argmax(output))
         step += 1
-        print(step, '/', len(trees))
+        print((step, '/', len(trees)))
 
     target_names = list(labels)
-    print('Accuracy:', accuracy_score(correct_labels, predictions))
-    print(classification_report(correct_labels, predictions, target_names=target_names))
-    print(confusion_matrix(correct_labels, predictions))
+    print(('Accuracy:', accuracy_score(correct_labels, predictions)))
+    print((classification_report(correct_labels, predictions, target_names=target_names)))
+    print((confusion_matrix(correct_labels, predictions)))
