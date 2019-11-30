@@ -2,7 +2,9 @@
 a strategy similar to word2vec, but applied to the context of AST's."""
 
 import math
-import tensorflow as tf
+
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 from vectorizer.node_map import NODE_MAP
 from vectorizer.ast2vec.parameters import \
@@ -59,7 +61,7 @@ def init_net(
             logits = tf.matmul(hidden, weights) + biases
 
         with tf.name_scope('error'):
-            cross_entropy = tf.nn.softmax_cross_entropy_with_logits(
+            cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(
                 labels=onehot_labels, logits=logits, name='cross_entropy'
             )
 

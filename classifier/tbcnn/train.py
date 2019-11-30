@@ -4,7 +4,7 @@ https://arxiv.org/pdf/1409.5718.pdf"""
 import os
 import logging
 import pickle
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 import classifier.tbcnn.network as network
 import classifier.tbcnn.sampling as sampling

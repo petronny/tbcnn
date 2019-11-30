@@ -3,13 +3,13 @@
 import os
 import logging
 import pickle as pickle
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import vectorizer.ast2vec.network as network
 import vectorizer.ast2vec.sampling as sampling
 from vectorizer.node_map import NODE_MAP
 from vectorizer.ast2vec.parameters import \
     NUM_FEATURES, LEARN_RATE, BATCH_SIZE, EPOCHS, CHECKPOINT_EVERY
-from tensorflow.contrib.tensorboard.plugins import projector
+from tensorboard.plugins import projector
 
 def learn_vectors(samples, logdir, outfile, num_feats=NUM_FEATURES, epochs=EPOCHS):
     """Learn a vector representation of Python AST nodes."""

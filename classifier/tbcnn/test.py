@@ -4,7 +4,7 @@ import os
 import logging
 import pickle
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import classifier.tbcnn.network as network
 import classifier.tbcnn.sampling as sampling
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
